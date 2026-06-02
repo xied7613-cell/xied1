@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 날씨 및 시즌 팁</title>
+  <meta name="description" content="양구의 사계절 가족 휴양 꿀팁. 봄 축제 정보, 여름 계곡 대처법, 가을 단풍 시기, 겨울 실내 온실 박물관 등 기상 특보 및 대체 실내 경로 수록.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container" id="tips-view" style="transition: background-color 0.4s ease;">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="tips-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px;">날씨 & 여행 팁</span>
+      </div>
+      <a href="emergency.html" class="emergency-quick-btn" id="tips-emergency-btn">
+        <i class="fas fa-first-aid"></i> 응급센터
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper animate-fade-in" id="tips-content" style="padding-bottom: 30px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="tips-hero" style="background: linear-gradient(135deg, var(--primary-light), var(--secondary-color)); margin-bottom:16px;">
+        <h1>계절별 가족 휴양 팁</h1>
+        <p>양구는 사계절 매력이 모두 다릅니다. 계절별 안전 주의점과 최고의 순간을 남길 수 있는 시즌 꿀팁을 전해드립니다.</p>
+      </section>
+
+      <!-- Season Selector Tabs (Premium Interactive Concept) -->
+      <section style="padding: 0 20px; margin-bottom: 20px;" id="tips-tabs">
+        <h3 class="section-title"><i class="fas fa-calendar-alt" style="color: var(--primary-color);"></i> 사계절 시즌 스위처</h3>
+        <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;">
+          <button id="btn-season-spring" class="filter-chip active" onclick="switchSeason('spring')" style="border:none; cursor:pointer;">🌸 봄 힐링</button>
+          <button id="btn-season-summer" class="filter-chip" onclick="switchSeason('summer')" style="border:none; cursor:pointer;">☀️ 여름 휴가</button>
+          <button id="btn-season-autumn" class="filter-chip" onclick="switchSeason('autumn')" style="border:none; cursor:pointer;">🍁 가을 단풍</button>
+          <button id="btn-season-winter" class="filter-chip" onclick="switchSeason('winter')" style="border:none; cursor:pointer;">❄️ 겨울 실내</button>
+        </div>
+      </section>
+
+      <!-- Seasons Interactive Content Box -->
+      <section style="padding: 0 20px;" id="season-tips-content">
+        <!-- Spring (Active by default) -->
+        <div id="tip-box-spring" class="premium-card animate-fade-in" style="border-top: 4px solid #fcc2d7; background-color: #fff0f6;">
+          <h3 style="color: #d6336c; font-size:16px; font-weight:700; margin-bottom: 8px;"><i class="fas fa-seedling"></i> 봄: 곰취 향기와 꽃섬 정원 산책</h3>
+          <p style="font-size: 13px; color: var(--text-dark); line-height: 1.5; margin-bottom: 12px;">
+            매년 5월이면 양구의 특산품인 '곰취 축제'가 열려 맛있는 체험과 공연이 가득합니다. 또한 <strong>파로호 꽃섬 공원</strong>에 노란 유채꽃과 개양귀비가 가득 피어나 아이와 생애 첫 인생 사진을 남기기에 가장 화사한 계절입니다.
+          </p>
+          <div style="font-size:11px; background-color:#fff; border-radius:var(--radius-sm); padding:10px; border-left: 3px solid #d6336c;">
+            🌸 <strong>봄철 안전 팁:</strong> 큰 일교차와 숲속 봄바람은 아이들이 감기 걸리기 쉬우므로 가벼운 바람막이나 얇은 겉옷을 꼭 챙기세요. 미세먼지 황사에 대비한 마스크 구비는 필수입니다.
+          </div>
+        </div>
+
+        <!-- Summer (Hidden) -->
+        <div id="tip-box-summer" class="premium-card animate-fade-in" style="border-top: 4px solid #74c0fc; background-color: #e7f5ff; display:none;">
+          <h3 style="color: #1c7ed6; font-size:16px; font-weight:700; margin-bottom: 8px;"><i class="fas fa-water"></i> 여름: 시원한 숲속 수목원과 계곡</h3>
+          <p style="font-size: 13px; color: var(--text-dark); line-height: 1.5; margin-bottom: 12px;">
+            여름에는 나무 그늘이 울창한 <strong>양구수목원</strong>이 최고의 피서지입니다. 수목원 숲속 놀이터와 생태관에서 뛰놀고, 근처 방산면의 깨끗하고 깊지 않은 청정 계곡 물가에서 시원하게 발을 담그는 휴식을 강하게 추천합니다.
+          </p>
+          <div style="font-size:11px; background-color:#fff; border-radius:var(--radius-sm); padding:10px; border-left: 3px solid #1c7ed6;">
+            ☀️ <strong>여름철 안전 팁:</strong> 여름 산 속의 모기와 해충은 강력하므로, 유아용 모기 기피 패치와 상처 연고를 필수 구비하세요. 갑작스러운 국지성 호우 시 계곡물은 빠르게 불어나므로 즉시 계곡 밖 안전 지대로 대피하셔야 합니다.
+          </div>
+        </div>
+
+        <!-- Autumn (Hidden) -->
+        <div id="tip-box-autumn" class="premium-card animate-fade-in" style="border-top: 4px solid #ffd43b; background-color: #fff9db; display:none;">
+          <h3 style="color: #f59f00; font-size:16px; font-weight:700; margin-bottom: 8px;"><i class="fas fa-leaf"></i> 가을: 수려한 두타연 단풍과 걷기 여행</h3>
+          <p style="font-size: 13px; color: var(--text-dark); line-height: 1.5; margin-bottom: 12px;">
+            원시림이 그대로 보존되어 한반도에서 가장 아름답고 깨끗한 단풍을 감상할 수 있는 <strong>두타연 계곡 숲길</strong>이 절정을 이룹니다. 한반도섬 데크길을 붉게 타오르는 억새풀과 가을 하늘을 느끼며 조용히 가족 산책을 걷기 안성맞춤입니다.
+          </p>
+          <div style="font-size:11px; background-color:#fff; border-radius:var(--radius-sm); padding:10px; border-left: 3px solid #f59f00;">
+            🍁 <strong>가을철 안전 팁:</strong> 민통선 내부에 속한 두타연 계곡은 숲이 깊어 해가 일찍 집니다. 오후 4시 이전까지 관람을 마치는 일정을 짜고, 야생 진드기 매개 감염을 막기 위해 풀밭에 돗자리 없이 직접 눕거나 앉지 않도록 각별히 유의하세요.
+          </div>
+        </div>
+
+        <!-- Winter (Hidden) -->
+        <div id="tip-box-winter" class="premium-card animate-fade-in" style="border-top: 4px solid #a5d8ff; background-color: #f1f3f5; display:none;">
+          <h3 style="color: #4dabf7; font-size:16px; font-weight:700; margin-bottom: 8px;"><i class="fas fa-snowflake"></i> 겨울: 포근한 실내 온실과 별빛 관측</h3>
+          <p style="font-size: 13px; color: var(--text-dark); line-height: 1.5; margin-bottom: 12px;">
+            겨울철에는 따뜻한 온기가 감도는 <strong>양구 백자박물관</strong> 실내 전시관 관람과 직접 도자기를 빚는 아늑한 실내 도예 체험이 최고입니다. 그리고 밤하늘이 1년 중 가장 맑은 겨울철 밤에는 <strong>국토정중앙천문대</strong>에서 은하수와 별을 가장 또렷이 만날 수 있습니다.
+          </p>
+          <div style="font-size:11px; background-color:#fff; border-radius:var(--radius-sm); padding:10px; border-left: 3px solid #4dabf7;">
+            ❄️ <strong>겨울철 안전 팁:</strong> 양구는 산간 지역이라 겨울철 기온이 매우 낮고 눈이 많이 내립니다. 아이들의 안전한 동절기 방한복 세트(장갑, 귀도리)를 준비하고, 눈길/빙판길 차량 안전 체인 구비 및 저속 운행을 명심하세요.
+          </div>
+        </div>
+      </section>
+
+      <!-- Rainy Day Alternative Section (Premium Added Value) -->
+      <section style="padding: 0 20px; margin-top: 10px;" id="rainy-tips">
+        <h3 class="section-title" style="color: var(--secondary-color);"><i class="fas fa-cloud-showers-heavy"></i> ☔ 비가 오거나 눈이 오면 어쩌죠?</h3>
+        <p class="section-subtitle">기상 악화 시 긴급 안심 실내 대안 경로</p>
+        
+        <div class="premium-card" style="margin-bottom: 0; background-color: var(--white); border-color: var(--gray-300);">
+          <p style="font-size: 13px; color: var(--text-dark); line-height: 1.6;">
+            갑작스러운 강우나 태풍, 혹은 매서운 한파 시에는 다음 <strong>안심 실내 대안 루트</strong>를 따라 여행을 안전하고 알차게 계속하실 수 있습니다.
+          </p>
+          <ul style="margin-top: 12px; margin-left: 20px; font-size: 13px; color: var(--text-dark); display:flex; flex-direction:column; gap:8px;">
+            <li><strong>양구 백자박물관 실내</strong> (도자기 빚기 체험 & 상설 기획 전시실)</li>
+            <li><strong>양구수목원 'DMZ 야생동물생태관' 및 실내 온실 정원</strong> (무료입장 & 박제동물 관람 가능)</li>
+            <li><strong>국토정중앙천문대 돔영상관</strong> (누워서 감상하는 따뜻한 우주 다큐멘터리 극장)</li>
+            <li><strong>애플팜 가든 카페 실내 공간</strong> (카페 내 모래 놀이터 대신 실내 테이블 보드게임 제공)</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav-bar" id="tips-nav-bar">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Global Floating Emergency Trigger -->
+  <a href="emergency.html" class="floating-emergency-trigger" id="tips-floating-emergency">
+    <i class="fas fa-ambulance" style="font-size:22px;"></i>
+  </a>
+
+  <!-- JS Scripts -->
+  <script src="../js/main.js"></script>
+  <script>
+    /**
+     * 계절 탭 토글 및 알맞은 내용 표시
+     */
+    function switchSeason(season) {
+      // 1. 모든 탭 버튼 active 클래스 제거
+      const chips = document.querySelectorAll('#tips-tabs .filter-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+
+      // 2. 모든 팁 박스 숨기기
+      const boxes = document.querySelectorAll('#season-tips-content > div');
+      boxes.forEach(box => box.style.display = 'none');
+
+      // 3. 대상 활성화
+      document.getElementById(`btn-season-${season}`).classList.add('active');
+      document.getElementById(`tip-box-${season}`).style.display = 'block';
+
+      // 4. 시즌별 배경 무드 전환 피드백
+      const container = document.getElementById('tips-view');
+      if (container) {
+        if (season === 'spring') {
+          container.style.backgroundColor = '#fff0f6'; // 벚꽃 소프트 핑크
+        } else if (season === 'summer') {
+          container.style.backgroundColor = '#e7f5ff'; // 시원한 스카이 블루
+        } else if (season === 'autumn') {
+          container.style.backgroundColor = '#fff9db'; // 웜 옐로우
+        } else if (season === 'winter') {
+          container.style.backgroundColor = '#f8f9fa'; // 소프트 그레이
+        }
+      }
+    }
+  </script>
+</body>
+</html>

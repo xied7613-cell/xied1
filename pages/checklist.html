@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 여행 체크리스트</title>
+  <meta name="description" content="아이 동반 여행을 위한 필수 상비약, 유모차 등 기본 팩 탑재. 우리가족 전용 커스텀 체크리스트 추가 및 LocalStorage 저장으로 안전하게 짐싸기 완료.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js CDN (Rich Aesthetics & 진척도 시각화) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-container" id="checklist-view">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="checklist-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px;">여행 체크리스트</span>
+      </div>
+      <a href="emergency.html" class="emergency-quick-btn" id="checklist-emergency-btn">
+        <i class="fas fa-first-aid"></i> 응급센터
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper" id="checklist-content" style="padding-bottom: 30px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="checklist-hero" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); margin-bottom:16px;">
+        <h1>가족 안심 짐싸기</h1>
+        <p>아이와 함께 갈 때는 챙겨야 할 짐이 배로 늘어납니다. 빠뜨린 비상용품이 없는지 하나씩 체크하고 가방에 쏙 넣으세요!</p>
+      </section>
+
+      <!-- Visual Progress Chart Board -->
+      <section style="padding: 0 20px; margin-bottom: 24px;" id="checklist-progress-board">
+        <div class="premium-card" style="display: flex; align-items: center; justify-content: space-between; padding: 20px; margin-bottom: 0;">
+          <div style="flex: 1;">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">우리가족 준비율</span>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-dark); margin-top: 4px;">가방 싸는 중...</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">체크를 완료할 때마다 실시간 진척 차트가 움직입니다.</p>
+          </div>
+          
+          <!-- Chart.js Canvas Wrapper -->
+          <div style="position: relative; width: 80px; height: 80px;" id="chart-wrapper">
+            <canvas id="checklist-chart-canvas"></canvas>
+            <div id="checklist-percent-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; font-weight: 700; color: var(--primary-color);">0%</div>
+          </div>
+        </div>
+        
+        <!-- Fallback CSS Progress Bar (Chart.js 실패 대비 보조책) -->
+        <div style="width: 100%; height: 4px; background-color: var(--gray-200); border-radius: 2px; margin-top: 8px; overflow: hidden;">
+          <div id="checklist-progress-fallback" style="width: 0%; height: 100%; background-color: var(--primary-color); transition: width 0.4s ease;"></div>
+        </div>
+      </section>
+
+      <!-- Add Checklist Item Form -->
+      <section style="padding: 0 20px; margin-bottom: 20px;" id="checklist-form-wrapper">
+        <form id="checklist-add-form" class="premium-card" style="margin-bottom: 0; padding: 16px; display:flex; flex-direction:column; gap:12px; border-color: var(--gray-300);">
+          <h4 style="font-size: 13px; font-weight:700; color:var(--text-dark);">➕ 내 가방에 맞춤 준비물 직접 넣기</h4>
+          
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="checklist-input" placeholder="예: 아이 보조 배터리, 돗자리..." style="flex:1; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 10px 12px; font-size:13px; outline:none; font-family:inherit;" required>
+            <select id="checklist-category-select" style="border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 10px; font-size:12px; outline:none; background-color:var(--white); font-family:inherit; color:var(--text-dark);">
+              <option value="안전/의료">🚨 안전/의료</option>
+              <option value="식사">🍴 식사/간식</option>
+              <option value="의류">👕 옷/이불</option>
+              <option value="위생/보호">🧼 위생/보호</option>
+              <option value="이동편의">🚗 이동/편의</option>
+              <option value="기타" selected>🏷️ 기타물품</option>
+            </select>
+          </div>
+          
+          <button type="submit" style="background-color: var(--primary-color); color:var(--white); border:none; padding:10px; border-radius: var(--radius-sm); font-size:13px; font-weight:700; cursor:pointer; transition:background-color 0.2s;">
+            가방에 준비물 추가하기
+          </button>
+        </form>
+      </section>
+
+      <!-- Dynamic Checklist Rows Container -->
+      <section style="padding: 0 20px;" id="checklist-items-container">
+        <!-- js/checklist.js 연동하여 렌더링 -->
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav-bar" id="checklist-nav-bar">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item active">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Global Floating Emergency Trigger -->
+  <a href="emergency.html" class="floating-emergency-trigger" id="checklist-floating-emergency">
+    <i class="fas fa-ambulance" style="font-size:22px;"></i>
+  </a>
+
+  <!-- JS Scripts -->
+  <script src="../js/main.js"></script>
+  <script src="../js/checklist.js"></script>
+</body>
+</html>

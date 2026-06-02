@@ -1,0 +1,977 @@
+/* 
+  양구 가족 휴양 여행 가이드 Premium CSS Design System (V4.0)
+  Theme: 감성 힐링 축제 (Warm Cherry Coral, Sunset Gold, Cozy Cream Ivory Paper)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Outfit:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Joyful & Emotional Festival Theme Color Palette */
+  --primary-color: #ff6b6b;      /* 화사하고 따뜻한 벚꽃 코랄 레드 */
+  --primary-light: #ff8e8e;      /* 부드럽고 행복한 로즈 피치 */
+  --primary-bg: #fff0f0;         /* 편안한 연분홍 크림 */
+  --secondary-color: #f0a500;    /* 감성적인 석양빛 골든 오렌지 */
+  --secondary-light: #fef5e7;    /* 따뜻하고 은은한 골든 크림 */
+  --accent-color: #ff4a5a;       /* 축제의 하이라이트를 알리는 활기찬 체리 핑크 */
+  --text-dark: #3a2e2b;          /* 감성적이고 따뜻한 딥 차콜 브라운 (눈 피로 최소화) */
+  --text-muted: #a39591;         /* 소프트 에스프레소 브라운 그레이 */
+  --bg-light: #fffaf4;           /* 축제 텐트/크림 페이퍼 감성의 따스한 아이보리 배경 */
+  --white: #ffffff;
+  --gray-100: #fbf8f5;
+  --gray-200: #f3ede7;
+  --gray-300: #e5ded6;
+  
+  /* Shadow & Blur System (With Warm Golden Glow) */
+  --shadow-sm: 0 4px 12px rgba(58, 46, 43, 0.04);
+  --shadow-md: 0 10px 28px rgba(240, 165, 0, 0.08);
+  --shadow-lg: 0 20px 48px rgba(240, 165, 0, 0.12);
+  --glass-bg: rgba(255, 250, 244, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  
+  /* Layout Size */
+  --app-max-width: 480px; /* 모바일 앱 뷰 최대 폭 */
+}
+
+/* Base Reset & Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Outfit', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #e9ecef; /* 외부 브라우저 배경 (데스크톱용) */
+  color: var(--text-dark);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App Container (모바일 시뮬레이터 역할을 수행하여 데스크톱에서도 환상적인 앱의 가치를 제공) */
+.app-container {
+  width: 100%;
+  max-width: var(--app-max-width);
+  min-height: 100vh;
+  background-color: var(--bg-light);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 74px; /* 하단 탭바를 위한 넉넉한 여백 */
+  overflow: hidden;
+}
+
+/* 감성 축제 벌룬 & 별빛 데코 가상 요소 */
+.app-container::before {
+  content: '🎈';
+  position: absolute;
+  top: 10%;
+  left: 6%;
+  font-size: 22px;
+  opacity: 0.3;
+  animation: float-balloon 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.app-container::after {
+  content: '🌸';
+  position: absolute;
+  top: 48%;
+  right: 6%;
+  font-size: 18px;
+  opacity: 0.3;
+  animation: float-flower 9s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 콘텐츠 영역 내 귀여운 텐트 추가 데코 */
+.app-content-wrapper::before {
+  content: '⛺';
+  position: absolute;
+  bottom: 120px;
+  left: 5%;
+  font-size: 20px;
+  opacity: 0.25;
+  animation: float-balloon 8s ease-in-out infinite 2.5s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.app-content-wrapper::after {
+  content: '✨';
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  font-size: 16px;
+  opacity: 0.25;
+  animation: float-flower 6s ease-in-out infinite alternate 1s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes float-balloon {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-20px) rotate(8deg) scale(1.1); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+@keyframes float-flower {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-15px) rotate(-10deg) scale(1.05); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* Full Width Viewport for wide screens if user prefers */
+@media (min-width: 769px) {
+  body {
+    background-color: #f1f3f5;
+  }
+  .app-container {
+    max-width: 100%; /* 와이드 모니터 대응 */
+    padding: 0;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+  .app-content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 24px;
+  }
+}
+
+/* Header & Top Navigation Bar */
+.top-app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.top-app-bar .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-app-bar .logo-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.top-app-bar .logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.top-app-bar .emergency-quick-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--accent-color);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.top-app-bar .emergency-quick-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2);
+}
+
+/* Global Floating Emergency Button for all subpages */
+.floating-emergency-trigger {
+  position: fixed;
+  bottom: 90px;
+  right: calc(50% - 220px); /* 모바일 컨테이너 우측 하단 고정 */
+  z-index: 99;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+  cursor: pointer;
+  border: 2px solid var(--white);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  animation: emergency-wiggle 4s ease-in-out infinite;
+}
+
+@media (max-width: 480px) {
+  .floating-emergency-trigger {
+    right: 20px;
+  }
+}
+
+.floating-emergency-trigger:active {
+  transform: scale(0.9) rotate(-15deg);
+}
+
+/* Bottom Navigation Tab Bar (앱의 심장부) */
+.bottom-nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  height: 70px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  padding: 0 4px; /* 슬림 패딩으로 6개 아이콘 안정성 확보 */
+}
+
+@media (min-width: 769px) {
+  .bottom-nav-bar {
+    max-width: 100%;
+    border-top: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    height: 60px;
+    background-color: var(--white);
+  }
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 10px; /* 6개 탭 최적 슬림 폰트 */
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
+  gap: 3px;
+}
+
+.bottom-nav-item i {
+  font-size: 18px; /* 최적 아이콘 스펙 */
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bottom-nav-item:hover i, .bottom-nav-item.active i {
+  animation: jiggle-bounce 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.25);
+}
+
+.bottom-nav-item.active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.bottom-nav-item.active i {
+  transform: translateY(-3px) scale(1.1);
+  color: var(--primary-color);
+}
+
+.bottom-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  width: 4px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+/* Typography, Headings & Common Elements */
+h1, h2, h3, .logo-text, .section-title, .ticket-header h1, .modal-title, .item-title {
+  font-family: 'Gowun Batang', 'Outfit', 'Noto Sans KR', serif;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+/* Premium Card Design Pattern (Handmade diary decoration style) */
+.premium-card {
+  background-color: var(--white);
+  border-radius: 20px 24px 18px 22px / 22px 18px 24px 20px; /* 불규칙한 손그림 라운딩 */
+  padding: 20px;
+  box-shadow: 4px 4px 0px var(--gray-300); /* 다꾸 입체 2D 플랫 섀도우 */
+  border: 2px solid var(--text-dark); /* 크레용 굵은 손그림 마감선 */
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: visible; /* 마스킹 테이프가 바깥으로 튀어나올 수 있도록 허용 */
+}
+
+.premium-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--gray-300);
+}
+
+.premium-card.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0px rgba(240, 165, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+/* Horizontal Card List (Carousel style) */
+.horizontal-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 4px 20px 16px 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none; /* Safari, Chrome */
+}
+
+.horizontal-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: all 0.25s ease;
+}
+
+.horizontal-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.horizontal-card:hover img {
+  transform: scale(1.05);
+}
+
+.horizontal-card-body {
+  padding: 16px;
+}
+
+/* Common Header Banner */
+.page-hero-banner {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: var(--white);
+  padding: 32px 20px;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero-banner::after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  top: -30px;
+  right: -30px;
+}
+
+.page-hero-banner h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.page-hero-banner p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Premium Filter Chips */
+.filter-chips-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 20px 16px 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  scrollbar-width: none;
+}
+
+.filter-chips-container::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  flex: 0 0 auto;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-chip.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.2);
+}
+
+/* Search Bar Component */
+.search-wrapper {
+  padding: 0 20px 16px 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.search-box:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-dark);
+  font-family: inherit;
+}
+
+.search-box i {
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+/* Standard List View Grid (spots, restaurants) */
+.items-list-container {
+  padding: 0 20px;
+}
+
+.item-list-card {
+  display: flex;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  margin-bottom: 16px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.item-list-card:active {
+  transform: scale(0.98);
+}
+
+.item-list-img {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.item-list-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-list-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(45, 106, 79, 0.95);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.item-list-body {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.item-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.item-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.item-desc-snippet {
+  font-size: 12px;
+  color: var(--text-dark);
+  opacity: 0.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.item-tag-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.item-tag {
+  background-color: var(--gray-100);
+  color: var(--text-dark);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.item-tag.kids-tag {
+  background-color: var(--primary-bg);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Modal Bottom Sheet Detail View */
+.modal-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  background-color: var(--white);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+  transition: transform 0.35s cubic-bezier(0.32, 0.94, 0.6, 1);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-bottom-sheet.open {
+  transform: translate(-50%, 0);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-drag-handle {
+  width: 40px;
+  height: 5px;
+  background-color: var(--gray-300);
+  border-radius: 10px;
+  margin: 12px auto;
+}
+
+.modal-body {
+  padding: 0 20px 40px 20px;
+}
+
+.modal-header-img {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--gray-200);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-dark);
+  font-weight: bold;
+}
+
+.modal-divider {
+  height: 1px;
+  background-color: var(--gray-200);
+  margin: 16px 0;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 젤리 탄성 찌글 바운스 모션 키프레임 */
+@keyframes jiggle-bounce {
+  0% { transform: scale(1) translateY(0); }
+  25% { transform: scale(1.25, 0.8) translateY(0) rotate(-5deg); } /* 납작해짐 */
+  50% { transform: scale(0.8, 1.25) translateY(-8px) rotate(5deg); } /* 튀어오름 */
+  70% { transform: scale(1.1, 0.9) translateY(-2px) rotate(-2deg); }
+  85% { transform: scale(0.97, 1.03) translateY(0) rotate(1deg); }
+  100% { transform: scale(1) translateY(0) rotate(0deg); }
+}
+
+/* 응급 버튼/스티커 흔들흔들 키프레임 */
+@keyframes emergency-wiggle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  2% { transform: scale(1.08) rotate(-12deg); }
+  4% { transform: scale(1.08) rotate(12deg); }
+  6% { transform: scale(1.08) rotate(-10deg); }
+  8% { transform: scale(1.08) rotate(10deg); }
+  10% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes swaying-sticker {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* 꼬마 전구 반짝임 */
+@keyframes bulb-flash {
+  0% { opacity: 0.3; filter: drop-shadow(0 0 1px currentColor); transform: scale(0.85); }
+  100% { opacity: 1; filter: drop-shadow(0 0 6px currentColor); transform: scale(1.15); }
+}
+
+/* Image Lazy Blur placeholder */
+.lazy-image {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+}
+
+.lazy-image.loaded {
+  filter: blur(0);
+}
+
+/* 원데이투어 메인 탭바 강조 플로팅 스타일 */
+.bottom-nav-item.main-tab {
+  transform: translateY(-14px);
+  z-index: 101;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: var(--white) !important;
+  width: 58px;
+  height: 58px;
+  border-radius: 50% !important;
+  box-shadow: 0 6px 16px rgba(45, 106, 79, 0.35);
+  border: 3px solid var(--white);
+  flex: 0 0 58px;
+  margin: 0 2px;
+  gap: 1px;
+}
+
+.bottom-nav-item.main-tab i {
+  font-size: 20px !important;
+  color: var(--white) !important;
+}
+
+.bottom-nav-item.main-tab span {
+  font-size: 8px !important;
+  font-weight: 700;
+  color: var(--white) !important;
+}
+
+.bottom-nav-item.main-tab.active {
+  background: linear-gradient(135deg, #1e4d3a, var(--primary-color));
+  box-shadow: 0 8px 20px rgba(45, 106, 79, 0.45);
+}
+
+.bottom-nav-item.main-tab.active::after {
+  display: none !important; /* 메인 탭에서는 하단 점 숨김 */
+}
+
+/* ==========================================================================
+   다꾸(다이어리 꾸미기) & 페스티벌 데코레이션 스타일 (V5.0)
+   ========================================================================== */
+
+/* 1. 페스티벌 반짝이 꼬마 전구 스트링 */
+.fairy-lights-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 110;
+}
+
+.fairy-lights {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 16px;
+  margin: 0;
+  list-style: none;
+}
+
+.fairy-lights li {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  color: #ff6b6b;
+  box-shadow: 0 0 6px #ff6b6b;
+  animation: bulb-flash 0.8s infinite ease-in-out alternate;
+}
+
+.fairy-lights li:nth-child(2n) {
+  background-color: #f0a500;
+  color: #f0a500;
+  box-shadow: 0 0 6px #f0a500;
+  animation-delay: 0.15s;
+  animation-duration: 0.9s;
+}
+
+.fairy-lights li:nth-child(3n) {
+  background-color: #4dabf7;
+  color: #4dabf7;
+  box-shadow: 0 0 6px #4dabf7;
+  animation-delay: 0.3s;
+  animation-duration: 0.7s;
+}
+
+.fairy-lights li:nth-child(4n) {
+  background-color: #51cf66;
+  color: #51cf66;
+  box-shadow: 0 0 6px #51cf66;
+  animation-delay: 0.45s;
+  animation-duration: 1.1s;
+}
+
+.fairy-lights li:nth-child(5n) {
+  background-color: #ff8787;
+  color: #ff8787;
+  box-shadow: 0 0 6px #ff8787;
+  animation-delay: 0.6s;
+  animation-duration: 0.8s;
+}
+
+/* 2. 다꾸 감성 마스킹 테이프 스티커 데코 */
+.masking-tape-decor {
+  position: relative;
+}
+
+.masking-tape-decor::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 15%;
+  width: 65px;
+  height: 18px;
+  background-color: rgba(255, 182, 193, 0.7); /* 파스텔 연분홍 테이프 */
+  border-left: 1px dashed rgba(255,255,255,0.6);
+  border-right: 1px dashed rgba(255,255,255,0.6);
+  transform: rotate(-3deg);
+  box-shadow: 0 1px 3px rgba(58, 46, 43, 0.05);
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* 마스킹 테이프 색상 및 각도 바리에이션 */
+.tape-yellow::before {
+  background-color: rgba(254, 215, 170, 0.75); /* 살구 오렌지 */
+  transform: rotate(2.5deg);
+  left: 65%;
+  width: 75px;
+}
+
+.tape-mint::before {
+  background-color: rgba(167, 244, 222, 0.75); /* 감성 민트 */
+  transform: rotate(-1.5deg);
+  left: 40%;
+  width: 70px;
+}
+
+.tape-purple::before {
+  background-color: rgba(230, 204, 255, 0.75); /* 감성 퍼플 */
+  transform: rotate(4deg);
+  left: 10%;
+  width: 60px;
+}
+
+/* 3. 추가 다꾸 장식용 스티커 뱃지 */
+.dangu-sticker {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1.5px solid var(--text-dark);
+  box-shadow: 2px 2px 0px var(--text-dark);
+  background-color: var(--white);
+  transform: rotate(-3deg);
+  margin-right: 6px;
+  animation: swaying-sticker 4s ease-in-out infinite alternate;
+}
+
+.dangu-sticker.sticker-pink {
+  background-color: var(--primary-bg);
+  color: var(--primary-color);
+  transform: rotate(2deg);
+}
+
+.dangu-sticker.sticker-yellow {
+  background-color: var(--secondary-light);
+  color: var(--secondary-color);
+  transform: rotate(-4deg);
+}
+
+/* 4. 구름, 곰인형 배경 플로팅 애니메이션 추가 정의 */
+.app-container::after {
+  content: '🌸';
+  position: absolute;
+  top: 48%;
+  right: 6%;
+  font-size: 18px;
+  opacity: 0.35;
+  animation: float-flower 9s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 곰인형, 구름 플로팅 데코용 래퍼 요소 */
+.floating-decor-cloud {
+  position: absolute;
+  top: 32%;
+  left: 3%;
+  font-size: 24px;
+  opacity: 0.2;
+  animation: float-balloon 12s ease-in-out infinite 1s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-decor-bear {
+  position: absolute;
+  bottom: 220px;
+  right: 4%;
+  font-size: 22px;
+  opacity: 0.25;
+  animation: float-flower 10s ease-in-out infinite alternate 2s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 5. 둥글둥글 폰트 테마 확장 적용 */
+.premium-card h4, .premium-card h3, .section-title, .bottom-nav-item span {
+  font-family: 'Gowun Batang', 'Noto Sans KR', serif;
+}

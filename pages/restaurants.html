@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 가족식당 찾기</title>
+  <meta name="description" content="아이와 마음 놓고 갈 수 있는 양구의 식당 및 카페 안내소. 아기의자 보유 여부, 놀이방 유무, 전용 주차장 및 어린이 메뉴 제공 여부 상세 수록.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container" id="restaurants-view">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="restaurants-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px;">가족 식당</span>
+      </div>
+      <a href="emergency.html" class="emergency-quick-btn" id="restaurants-emergency-btn">
+        <i class="fas fa-first-aid"></i> 응급센터
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper" id="restaurants-content" style="padding-bottom: 20px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="restaurants-hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-light)); margin-bottom:16px;">
+        <h1>안심 가족 식당/카페</h1>
+        <p>놀이방이 있는 갈빗집부터 잔디 정원 모래놀이터 카페까지, 아이 동반 편의시설이 완비된 양구의 맛집입니다.</p>
+      </section>
+
+      <!-- Realtime Search Component -->
+      <section class="search-wrapper" id="restaurants-search">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="restaurants-search-input" placeholder="식당명, 메뉴, 편의 요소 실시간 검색..." oninput="handleRestaurantsFilter()">
+        </div>
+      </section>
+
+      <!-- Category Filter Chips -->
+      <section class="filter-chips-container" id="restaurants-filter-chips">
+        <div class="filter-chip active" id="chip-rest-all" onclick="selectRestCategory('전체')">✨ 전체보기</div>
+        <div class="filter-chip" id="chip-rest-family" onclick="selectRestCategory('가족식당')">🧸 가족식당</div>
+        <div class="filter-chip" id="chip-rest-korean" onclick="selectRestCategory('한식')">🍚 든든한 한식</div>
+        <div class="filter-chip" id="chip-rest-cafe" onclick="selectRestCategory('카페')">☕ 정원/카페</div>
+      </section>
+
+      <!-- Dynamic Restaurants List Grid -->
+      <section class="items-list-container" id="restaurants-list-container">
+        <!-- js/data-loader.js 로딩하여 렌더링 -->
+        <div style="text-align:center; padding:40px; color:var(--text-muted);">
+          <i class="fas fa-spinner fa-spin" style="font-size:24px; margin-bottom:10px;"></i><br>안심하고 드실 수 있는 식당 목록을 불러오고 있습니다...
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav-bar" id="restaurants-nav-bar">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item active">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Global Floating Emergency Trigger -->
+  <a href="emergency.html" class="floating-emergency-trigger" id="restaurants-floating-emergency">
+    <i class="fas fa-ambulance" style="font-size:22px;"></i>
+  </a>
+
+  <!-- JS Scripts -->
+  <script src="../js/tour-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/data-loader.js"></script>
+  <script>
+    let currentRestCategory = '전체';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 초기 렌더링
+      loadAndRenderRestaurants('전체', '');
+    });
+
+    /**
+     * 카테고리 칩 선택
+     */
+    function selectRestCategory(category) {
+      currentRestCategory = category;
+      
+      const chips = document.querySelectorAll('#restaurants-filter-chips .filter-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+
+      if (category === '전체') {
+        document.getElementById('chip-rest-all').classList.add('active');
+      } else if (category === '가족식당') {
+        document.getElementById('chip-rest-family').classList.add('active');
+      } else if (category === '한식') {
+        document.getElementById('chip-rest-korean').classList.add('active');
+      } else if (category === '카페') {
+        document.getElementById('chip-rest-cafe').classList.add('active');
+      }
+
+      handleRestaurantsFilter();
+    }
+
+    /**
+     * 실시간 검색/카테고리 융합 필터 실행
+     */
+    function handleRestaurantsFilter() {
+      const searchInput = document.getElementById('restaurants-search-input');
+      const keyword = searchInput ? searchInput.value : '';
+      loadAndRenderRestaurants(currentRestCategory, keyword);
+    }
+  </script>
+</body>
+</html>

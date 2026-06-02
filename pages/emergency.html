@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 응급 및 안전 정보</title>
+  <meta name="description" content="양구 여행 중 비상 상황 및 소아 발열 등 응급 대처를 위한 24시 응급실, 당번 약국, 공공 수유실 및 소아과 리스트. 1초 전화 연결 및 응급 가이드 탑재.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container" id="emergency-view">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="emergency-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px;">🚨 응급 정보</span>
+      </div>
+      <a href="tel:119" class="emergency-quick-btn" style="background-color:var(--accent-color); font-weight:900;" id="quick-119-btn">
+        <i class="fas fa-phone-alt"></i> 119 바로연결
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper" id="emergency-content" style="padding-bottom: 30px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="emergency-hero" style="background: linear-gradient(135deg, var(--accent-color), #b91c1c); margin-bottom:16px;">
+        <h1>가족 안심 안테나</h1>
+        <p>아이들이 갑자기 아프거나 다쳤을 때 당황하지 마세요. 양구의 전문 의료시설과 즉시 전화 연결을 제공합니다.</p>
+      </section>
+
+      <!-- Category Filter Chips -->
+      <section class="filter-chips-container" id="emergency-filter-chips">
+        <div class="filter-chip active" id="chip-em-all" onclick="selectEmergencyType('전체')">🚑 전체보기</div>
+        <div class="filter-chip" id="chip-em-er" onclick="selectEmergencyType('응급실')">🚨 24시 응급실</div>
+        <div class="filter-chip" id="chip-em-hosp" onclick="selectEmergencyType('병원')">🏥 소아과/보건소</div>
+        <div class="filter-chip" id="chip-em-pharm" onclick="selectEmergencyType('약국')">💊 주말/당번약국</div>
+        <div class="filter-chip" id="chip-em-room" onclick="selectEmergencyType('수유실')">🍼 열린수유실</div>
+      </section>
+
+      <!-- Dynamic Emergency Facilities List -->
+      <section class="items-list-container" id="emergency-list-container" style="padding:0 20px;">
+        <!-- js/data-loader.js 로딩하여 렌더링 -->
+      </section>
+
+      <!-- Emergency Medical First-Aid Guide Section -->
+      <section style="padding: 0 20px; margin-top: 24px;" id="emergency-guide">
+        <h3 class="section-title" style="color: var(--accent-color);"><i class="fas fa-heartbeat"></i> 우리가족 응급처치 꿀팁</h3>
+        <p class="section-subtitle">여행 중 빈번히 발생하는 아이 응급 상황 대처 매뉴얼</p>
+        
+        <div class="premium-card" style="margin-bottom: 12px; border-left: 4px solid var(--accent-color);">
+          <h4 style="font-size: 14px; font-weight:700; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
+            <span style="background-color:rgba(230,57,70,0.1); color:var(--accent-color); width:24px; height:24px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:11px;">1</span>
+            아이 갑작스러운 고열 (해열제 교차복용)
+          </h4>
+          <p style="font-size: 12px; color: var(--text-dark); margin-top: 8px; line-height: 1.5;">
+            아세트아미노펜(타이레놀 계열)과 이부프로펜/덱시부프로펜(부루펜 계열)은 <strong>최소 2시간 간격</strong>으로 교차 복용 가능합니다. 해열제를 먹인 후에는 미지근한 물을 수건에 적셔 목, 겨드랑이 등을 부드럽게 닦아주세요.
+          </p>
+        </div>
+
+        <div class="premium-card" style="margin-bottom: 12px; border-left: 4px solid var(--primary-color);">
+          <h4 style="font-size: 14px; font-weight:700; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
+            <span style="background-color:var(--primary-bg); color:var(--primary-color); width:24px; height:24px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:11px;">2</span>
+            야외 활동 중 벌이나 벌레 쏘임
+          </h4>
+          <p style="font-size: 12px; color: var(--text-dark); margin-top: 8px; line-height: 1.5;">
+            벌침이 박혀있다면 신용카드로 살살 긁어서 수평으로 밀어 제거해주세요. 물로 깨끗이 씻은 후 얼음찜질을 하고, 호흡 곤란이나 온몸 두드러기가 발생하면 즉시 <strong>성심병원 응급실</strong>로 즉각 이동해야 합니다.
+          </p>
+        </div>
+
+        <div class="premium-card" style="margin-bottom: 0; border-left: 4px solid var(--secondary-color);">
+          <h4 style="font-size: 14px; font-weight:700; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
+            <span style="background-color:var(--secondary-light); color:var(--secondary-color); width:24px; height:24px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:11px;">3</span>
+            계곡이나 산책길 찰과상 (피가 날 때)
+          </h4>
+          <p style="font-size: 12px; color: var(--text-dark); margin-top: 8px; line-height: 1.5;">
+            흐르는 수돗물이나 생수로 상처 부위의 흙과 오염물질을 깨끗이 씻어내어 감염을 막는 것이 최우선입니다. 깨끗한 수건으로 압박 지혈 후 빨간약이나 소독 연고를 바르고 대역 밴드를 부착하세요.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar (6개 대응, 원데이투어 플로팅 메인 탭바 동기화) -->
+    <nav class="bottom-nav-bar" id="emergency-nav-bar" style="padding:0 5px;">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="../js/tour-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/data-loader.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 초기 전체 데이터 로딩
+      loadAndRenderEmergency('전체');
+    });
+
+    /**
+     * 카테고리 칩 선택
+     */
+    function selectEmergencyType(type) {
+      // 칩 UI 클래스 갱신
+      const chips = document.querySelectorAll('#emergency-filter-chips .filter-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+
+      if (type === '전체') {
+        document.getElementById('chip-em-all').classList.add('active');
+      } else if (type === '응급실') {
+        document.getElementById('chip-em-er').classList.add('active');
+      } else if (type === '병원') {
+        document.getElementById('chip-em-hosp').classList.add('active');
+      } else if (type === '약국') {
+        document.getElementById('chip-em-pharm').classList.add('active');
+      } else if (type === '수유실') {
+        document.getElementById('chip-em-room').classList.add('active');
+      }
+
+      // 데이터 렌더링 호출
+      loadAndRenderEmergency(type);
+    }
+  </script>
+</body>
+</html>

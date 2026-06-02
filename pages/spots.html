@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 관광지 찾기</title>
+  <meta name="description" content="양구의 걷기 좋은 아름다운 자연 관광지부터 가족 체험 박물관까지. 유모차 반입, 편의시설 및 어린이를 위한 현장 맞춤형 필터와 실시간 검색 제공.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container" id="spots-view">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="spots-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px;">관광지 찾기</span>
+      </div>
+      <a href="emergency.html" class="emergency-quick-btn" id="spots-emergency-btn">
+        <i class="fas fa-first-aid"></i> 응급센터
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper" id="spots-content" style="padding-bottom: 20px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="spots-hero" style="margin-bottom:16px;">
+        <h1>가족 친화 관광지</h1>
+        <p>어린 자녀가 마음껏 뛰놀고 부모님이 한적하게 호흡할 수 있는 안전 검증 명소 리스트입니다.</p>
+      </section>
+
+      <!-- Realtime Search Component -->
+      <section class="search-wrapper" id="spots-search">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="spots-search-input" placeholder="관광지명, 키워드, 주소 실시간 검색..." oninput="handleSpotsFilter()">
+        </div>
+      </section>
+
+      <!-- Category Filter Chips -->
+      <section class="filter-chips-container" id="spots-filter-chips">
+        <div class="filter-chip active" id="chip-spot-all" onclick="selectSpotCategory('전체')">✨ 전체보기</div>
+        <div class="filter-chip" id="chip-spot-nature" onclick="selectSpotCategory('자연')">🌲 자연/휴양</div>
+        <div class="filter-chip" id="chip-spot-experience" onclick="selectSpotCategory('체험/역사')">🏺 체험/문화</div>
+      </section>
+
+      <!-- Dynamic Spots List Grid -->
+      <section class="items-list-container" id="spots-list-container">
+        <!-- js/data-loader.js 로딩하여 렌더링 -->
+        <div style="text-align:center; padding:40px; color:var(--text-muted);">
+          <i class="fas fa-spinner fa-spin" style="font-size:24px; margin-bottom:10px;"></i><br>안전한 관광지 데이터를 불러오고 있습니다...
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav-bar" id="spots-nav-bar">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item active">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Global Floating Emergency Trigger -->
+  <a href="emergency.html" class="floating-emergency-trigger" id="spots-floating-emergency">
+    <i class="fas fa-ambulance" style="font-size:22px;"></i>
+  </a>
+
+  <!-- JS Scripts -->
+  <script src="../js/tour-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/data-loader.js"></script>
+  <script>
+    let currentSpotCategory = '전체';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 초기 렌더링
+      loadAndRenderSpots('전체', '');
+    });
+
+    /**
+     * 카테고리 칩 선택 이벤트
+     */
+    function selectSpotCategory(category) {
+      currentSpotCategory = category;
+      
+      // 칩 UI 클래스 갱신
+      const chips = document.querySelectorAll('#spots-filter-chips .filter-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+
+      if (category === '전체') {
+        document.getElementById('chip-spot-all').classList.add('active');
+      } else if (category === '자연') {
+        document.getElementById('chip-spot-nature').classList.add('active');
+      } else if (category === '체험/역사') {
+        document.getElementById('chip-spot-experience').classList.add('active');
+      }
+
+      // 필터링된 렌더링 호출
+      handleSpotsFilter();
+    }
+
+    /**
+     * 실시간 검색어 및 카테고리 융합 필터 실행
+     */
+    function handleSpotsFilter() {
+      const searchInput = document.getElementById('spots-search-input');
+      const keyword = searchInput ? searchInput.value : '';
+      loadAndRenderSpots(currentSpotCategory, keyword);
+    }
+  </script>
+</body>
+</html>

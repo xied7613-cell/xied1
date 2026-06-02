@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양구 가족 휴양 여행 가이드 | 원데이투어 안내서</title>
+  <meta name="description" content="양구 여행 사진을 업로드해 보세요. 사진 속 GPS 촬영 위치를 실시간 분석해 최단 거리의 관광지, 맛집, 응급시설 1일 맞춤 가이드 티켓을 발급합니다.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- EXIF Reader Library CDN (브라우저 사이드 GPS 디코딩) -->
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+</head>
+<body>
+
+  <div class="app-container" id="one-day-tour-view">
+    
+    <!-- Top App Bar -->
+    <header class="top-app-bar" id="gps-top-bar">
+      <div class="logo-container" onclick="location.href='../index.html'" style="cursor:pointer;">
+        <span class="logo-icon"><i class="fas fa-chevron-left" style="font-size:18px;"></i></span>
+        <span class="logo-text" style="font-size:16px; font-weight:700;">🎫 원데이투어 안내서</span>
+      </div>
+      <a href="emergency.html" class="emergency-quick-btn" id="gps-emergency-btn">
+        <i class="fas fa-first-aid"></i> 응급센터
+      </a>
+    </header>
+
+    <!-- 💡 감성 페스티벌 꼬마전구 스트링 -->
+    <div class="fairy-lights-container">
+      <ul class="fairy-lights">
+        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+      </ul>
+    </div>
+
+    <!-- 🧸 다꾸 아기자기 배경 플로팅 장식 -->
+    <div class="floating-decor-cloud">☁️</div>
+    <div class="floating-decor-bear">🧸</div>
+
+    <!-- Main Content Area -->
+    <main class="app-content-wrapper" id="gps-content" style="padding-bottom: 40px;">
+      
+      <!-- Page Hero Banner -->
+      <section class="page-hero-banner" id="gps-hero" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); margin-bottom:20px; border: 2px solid var(--text-dark); border-top: none; border-radius: 0 0 24px 24px; box-shadow: 4px 4px 0 var(--gray-300);">
+        <h1>원데이투어 안내소</h1>
+        <p>양구 여행 중 찍은 사진을 올려보세요. 사진 속 GPS 좌표를 자동으로 해독하여 가장 가까운 1일 맞춤 일정을 즉시 추천해 드립니다.</p>
+      </section>
+
+      <!-- Photo Upload Dropzone UI (마스킹 테이프 테마 다꾸 적용) -->
+      <section style="padding: 10px 20px 24px 20px; margin-bottom: 24px;" id="upload-zone-wrapper">
+        <div class="premium-card masking-tape-decor tape-yellow" style="border: 2px dashed var(--primary-color); background-color: var(--white); text-align:center; padding:36px 20px 24px 20px; margin-bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; cursor:pointer; transform: rotate(-0.5deg);" onclick="document.getElementById('image-file-input').click()">
+          
+          <div style="background-color: var(--primary-bg); color: var(--primary-color); width: 64px; height: 64px; border-radius: 50%; display:flex; justify-content:center; align-items:center; border: 2px solid var(--text-dark); box-shadow: 3px 3px 0 var(--text-dark);">
+            <i class="fas fa-ticket-alt" style="font-size: 28px;"></i>
+          </div>
+          
+          <div>
+            <span class="dangu-sticker sticker-pink">Photo Upload</span>
+            <h4 style="font-size: 15px; font-weight:800; color:var(--text-dark); margin-top:6px;">이곳을 눌러 여행 사진 올리기</h4>
+            <p style="font-size: 11px; color:var(--text-muted); margin-top:4px; line-height:1.4; font-weight:800;">스마트폰으로 현장에서 촬영한 사진 업로드 시<br>가장 정확하게 인근 코스가 설계됩니다.</p>
+          </div>
+          
+          <input type="file" id="image-file-input" accept="image/jpeg, image/jpg" style="display:none;" onchange="handleImageUpload(event)">
+        </div>
+      </section>
+
+      <!-- EXIF Parsing Loader (Hidden by default) -->
+      <section id="gps-loader" style="display:none; padding: 30px 20px; flex-direction:column; align-items:center; gap:16px;">
+        <i class="fas fa-spinner fa-spin" style="font-size:32px; color:var(--primary-color);"></i>
+        <div style="text-align:center;">
+          <h4 style="font-size:14px; font-weight:700;">사진 위치정보 해독 중...</h4>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">우리가족을 위한 안심 1일 코스를 조율하고 있습니다.</p>
+        </div>
+      </section>
+
+      <!-- GPS Fallback Selector (Hidden by default, shown when GPS not found) -->
+      <section id="gps-fallback-selector" style="display:none; padding: 0 20px; margin-bottom: 24px;" class="animate-fade-in">
+        <div class="premium-card" style="background-color: #fff9db; border: 1px solid #ffd43b; margin-bottom:0; padding:20px;">
+          <h4 style="font-size:14px; font-weight:700; color:#f59f00; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-exclamation-triangle"></i> 사진 내 GPS 좌표 없음
+          </h4>
+          <p style="font-size:12px; color:var(--text-dark); margin-top:8px; line-height:1.5;">
+            보안/메신저 전송으로 인해 사진 촬영 좌표가 유실되었습니다. 양구의 대표 거점을 가상 선택해 주시면 맞춤 투어 안내서를 즉시 발급해 드립니다!
+          </p>
+          
+          <div style="margin-top:16px; display:flex; gap:8px;">
+            <select id="fallback-select" style="flex:1; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding:10px; font-size:13px; font-family:inherit; color:var(--text-dark); background-color:var(--white);">
+              <option value="island" selected>🏝️ 파로호 한반도섬 근처에서 시작</option>
+              <option value="arboretum">🌲 DMZ 양구수목원 근처에서 시작</option>
+              <option value="museum">🏺 양구 백자박물관 근처에서 시작</option>
+              <option value="observatory">🔭 국토정중앙천문대 근처에서 시작</option>
+            </select>
+            <button onclick="selectFallbackLocation()" style="background-color: var(--primary-color); color:var(--white); border:none; padding:10px 16px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; cursor:pointer;">
+              티켓 발급
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GPS Match Result Showcase Card (Hidden by default, shown on success) -->
+      <section id="gps-result-card" style="display:none; padding: 0 20px;" class="animate-fade-in">
+        
+        <!-- Status Alert Chip -->
+        <div id="gps-result-alert" style="background-color:var(--primary-bg); color:var(--primary-color); font-size:11px; font-weight:700; padding:10px 16px; border-radius: var(--radius-sm); margin-bottom:16px; border-left:4px solid var(--primary-color);">
+          <!-- Dynamic Text -->
+        </div>
+
+        <h3 class="section-title"><i class="fas fa-magic" style="color:var(--primary-color);"></i> 나만의 1일 맞춤 코스</h3>
+        <p class="section-subtitle">동선을 최소화하여 유모차가 이동하기 쉬운 최단거리 코스</p>
+
+        <!-- Timeline Match Details -->
+        <div style="position:relative; padding-left:20px; margin-top:16px;">
+          <div style="position:absolute; left:7px; top:8px; bottom:8px; width:2px; background-color:var(--primary-light); opacity:0.3;"></div>
+
+          <!-- Spot Match Card -->
+          <div style="position:relative; margin-bottom:20px;">
+            <div style="position:absolute; left:-20px; top:4px; width:12px; height:12px; border-radius:50%; background-color:var(--primary-color); border:2px solid var(--white); box-shadow:var(--shadow-sm);"></div>
+            <div style="font-size:10px; font-weight:700; color:var(--primary-color); background-color:var(--primary-bg); display:inline-block; padding:2px 8px; border-radius:100px; margin-bottom:6px;">⏱️ 오전 코스 (안심 자연 관광)</div>
+            <div class="premium-card" id="gps-matched-spots" style="padding:16px; margin-bottom:0;">
+              <!-- Dynamic Spot -->
+            </div>
+          </div>
+
+          <!-- Restaurant Match Card -->
+          <div style="position:relative; margin-bottom:20px;">
+            <div style="position:absolute; left:-20px; top:4px; width:12px; height:12px; border-radius:50%; background-color:var(--secondary-color); border:2px solid var(--white); box-shadow:var(--shadow-sm);"></div>
+            <div style="font-size:10px; font-weight:700; color:var(--secondary-color); background-color:var(--secondary-light); display:inline-block; padding:2px 8px; border-radius:100px; margin-bottom:6px;">⏱️ 점심식사 (가족 추천 식당)</div>
+            <div class="premium-card" id="gps-matched-restaurants" style="padding:16px; margin-bottom:0;">
+              <!-- Dynamic Rest -->
+            </div>
+          </div>
+
+          <!-- Emergency Match Card -->
+          <div style="position:relative; margin-bottom:20px;">
+            <div style="position:absolute; left:-20px; top:4px; width:12px; height:12px; border-radius:50%; background-color:var(--accent-color); border:2px solid var(--white); box-shadow:var(--shadow-sm);"></div>
+            <div style="font-size:10px; font-weight:700; color:var(--accent-color); background-color:rgba(230,57,70,0.1); display:inline-block; padding:2px 8px; border-radius:100px; margin-bottom:6px;">🚨 비상시 대응 (가장 가까운 응급센터)</div>
+            <div class="premium-card" id="gps-matched-emergency" style="padding:16px; margin-bottom:0;">
+              <!-- Dynamic Emergency -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Custom Guide Ticket button -->
+        <button onclick="downloadMatchedGuide()" style="width:100%; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color:var(--white); border:none; padding:16px; border-radius:var(--radius-md); font-size:14px; font-weight:700; cursor:pointer; box-shadow: var(--shadow-md); display:flex; justify-content:center; align-items:center; gap:8px; margin-top:24px; transition:transform 0.2s;" id="download-ticket-btn">
+          <i class="fas fa-file-download" style="font-size:16px;"></i> 원데이투어 안심 안내서 다운로드 (오프라인 보존용)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar (6개 대응, 원데이투어 플로팅 메인 탭바) -->
+    <nav class="bottom-nav-bar" id="gps-nav-bar" style="padding:0 5px;">
+      <a href="../index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>홈</span>
+      </a>
+      <a href="courses.html" class="bottom-nav-item">
+        <i class="fas fa-route"></i>
+        <span>코스추천</span>
+      </a>
+      <a href="spots.html" class="bottom-nav-item">
+        <i class="fas fa-tree"></i>
+        <span>관광지</span>
+      </a>
+      <a href="one-day-tour.html" class="bottom-nav-item active main-tab">
+        <i class="fas fa-ticket-alt"></i>
+        <span>원데이투어</span>
+      </a>
+      <a href="restaurants.html" class="bottom-nav-item">
+        <i class="fas fa-utensils"></i>
+        <span>가족식당</span>
+      </a>
+      <a href="checklist.html" class="bottom-nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>체크리스트</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Global Floating Emergency Trigger -->
+  <a href="emergency.html" class="floating-emergency-trigger" id="gps-floating-emergency">
+    <i class="fas fa-ambulance" style="font-size:22px;"></i>
+  </a>
+
+  <!-- JS Scripts -->
+  <script src="../js/tour-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/one-day-tour.js"></script>
+</body>
+</html>
